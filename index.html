@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ROS 2 Mobile Privacy Policy</title>
+<meta name="description" content="Privacy policy for the ROS 2 Mobile Android app.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<style>
+  :root {
+    --canvas: #0B0E11;
+    --surface: #12161B;
+    --ink: #E8EDF2;
+    --ink-dim: #9AA7B2;
+    --ink-faint: #5C6973;
+    --accent: #2FD4C4;
+    --hairline: #1E252C;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--ink);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 0 20px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 56px 0 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+  header img { width: 56px; height: 56px; border-radius: 14px; }
+  header .title { font-size: 22px; font-weight: 700; letter-spacing: .2px; }
+  header .sub { color: var(--ink-dim); font-size: 13px; margin-top: 2px; }
+  h1 { font-size: 28px; margin: 36px 0 4px; letter-spacing: .2px; }
+  .updated { color: var(--ink-faint); font-size: 13px; margin-bottom: 28px; }
+  h2 {
+    font-size: 18px; margin: 36px 0 10px; padding-top: 22px;
+    border-top: 1px solid var(--hairline); color: var(--ink);
+  }
+  p, li { color: var(--ink-dim); }
+  strong { color: var(--ink); font-weight: 600; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code {
+    font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--surface); color: var(--accent);
+    padding: 1px 6px; border-radius: 5px;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+  th { color: var(--ink); font-weight: 600; }
+  td { color: var(--ink-dim); }
+  .table-scroll { overflow-x: auto; }
+  footer { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--hairline); color: var(--ink-faint); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img src="assets/logo.png" alt="ROS 2 Mobile logo">
+    <div>
+      <div class="title">ROS 2 Mobile</div>
+      <div class="sub">Your phone, as a ROS 2 sensor node</div>
+    </div>
+  </header>
+
+  <h1>Privacy Policy</h1>
+  <div class="updated">Last updated: 28 June 2026</div>
+
+  <p>ROS 2 Mobile (&ldquo;the app&rdquo;) turns your Android phone into a ROS 2 node: it
+  reads sensors you choose and publishes them as ROS 2 topics on a network you control.
+  This policy explains exactly what the app does with your data.</p>
+
+  <h2>The short version</h2>
+  <ul>
+    <li>The app sends sensor data <strong>only to the destination you configure</strong>
+      (the robot, laptop, or Zenoh router IP you type in). It does <strong>not</strong>
+      send your data to the developer or to any third party.</li>
+    <li>There are <strong>no ads, no analytics, no trackers, and no user accounts</strong>.</li>
+    <li>Data is published over your local network using standard ROS 2 middleware
+      (Zenoh, Fast DDS, or Cyclone DDS). By default this traffic is
+      <strong>not encrypted</strong>, exactly like any other ROS 2 system on a trusted LAN.</li>
+  </ul>
+
+  <h2>What the app accesses, and why</h2>
+  <p>The app only accesses a sensor when you enable its topic. Each maps directly to a
+  ROS 2 message you asked it to publish:</p>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Permission / sensor</th><th>Used for</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td>Location (GPS)</td><td><code>sensor_msgs/NavSatFix</code></td><td>only while the GPS topic is on</td></tr>
+      <tr><td>Camera</td><td><code>sensor_msgs/CompressedImage</code> (JPEG) + <code>sensor_msgs/CameraInfo</code></td><td>only while the camera topic is on</td></tr>
+      <tr><td>Microphone</td><td><code>audio_common_msgs/AudioData</code></td><td>only while the audio topic is on</td></tr>
+      <tr><td>Motion sensors (accelerometer, gyroscope, magnetometer)</td><td><code>sensor_msgs/Imu</code>, <code>sensor_msgs/MagneticField</code></td><td>only while those topics are on</td></tr>
+      <tr><td>Environment sensors (barometer, ambient light, proximity)</td><td><code>sensor_msgs/FluidPressure</code>, <code>Illuminance</code>, <code>Range</code></td><td>only while those topics are on, if the device has them</td></tr>
+      <tr><td>Battery state</td><td><code>sensor_msgs/BatteryState</code></td><td>only while that topic is on</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>When a topic is off, the app does not read that sensor.</p>
+
+  <h2>Where your data goes</h2>
+  <p>When you tap <strong>Go Live</strong>, the app connects to the IP address and
+  middleware you specified and publishes the enabled topics to that destination.
+  <strong>This is the only place your data is sent.</strong> The app is publish-only and
+  has no backend server of its own. The developer never receives, stores, or has access
+  to any sensor data.</p>
+  <p>Because the destination is your own ROS 2 system, you are responsible for securing
+  that network. ROS 2 traffic on a LAN is unencrypted by default; do not publish over an
+  untrusted network.</p>
+
+  <h2>Data stored on your device</h2>
+  <p>The app stores your connection settings locally (target IP, namespace, ROS domain,
+  and which topics are enabled) using Android&rsquo;s standard preferences storage. This
+  information stays on your device and is never transmitted anywhere. Uninstalling the
+  app removes it.</p>
+
+  <h2>Data sharing and sale</h2>
+  <p>The app does <strong>not</strong> share or sell any data to third parties. No data
+  is collected by the developer.</p>
+
+  <h2>Children</h2>
+  <p>The app is a developer tool for robotics and is not directed at children.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the updated version will be posted at this page.</p>
+
+  <h2>Contact</h2>
+  <p>For questions about this policy, contact:
+  <a href="mailto:friedl.jak@gmail.com">friedl.jak@gmail.com</a>.</p>
+
+  <footer>ROS 2 Mobile &middot; This page is the app&rsquo;s official privacy policy.</footer>
+
+</div>
+</body>
+</html>
